@@ -1,0 +1,6 @@
+[submodule "vendor/bare"]
+	path = vendor/bare
+	url = git@github.com:holepunchto/bare.git
+[submodule "vendor/concurrentqueue"]
+	path = vendor/concurrentqueue
+	url = git@github.com:cameron314/concurrentqueue.git
