@@ -1,8 +1,8 @@
 {
-  "name": "expo-hello-bare",
+  "name": "pear-expo-hello-world",
   "version": "1.0.0",
   "bin": {
-    "hello-bare": "./bin/hello-bare.js"
+    "hello-pear": "./bin/hello-pear.js"
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
