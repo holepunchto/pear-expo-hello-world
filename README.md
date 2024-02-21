@@ -1,6 +1,6 @@
-# expo-hello-bare
+# pear-expo-hello-world
 
-A bare `hello world` using [Bare](https://github.com/holepunchto/bare) with [Expo](https://docs.expo.dev/).
+A Pear Runtime `hello world` using [Bare](https://github.com/holepunchto/bare) with [Expo](https://docs.expo.dev/).
 
 Requirements
 ------------
@@ -24,41 +24,41 @@ git submodule update --init --recursive
 
 Now install all the dependencies running `npm install` or your package manager of preference.
 
-For ease we added a helper script you can simply install running `npm link` in the project's root -or `bin/hello-bare.js` or npx `hello-bare`-.
+For ease we added a helper script you can simply install running `npm link` in the project's root -or `bin/hello-pear.js` or npx `hello-pear`-.
 
 > [!IMPORTANT]
 > The first time you run it you need to append the `--configure` flag:
 > ```sh
-> hello-bare --configure
+> hello-pear --configure
 > ```
 
 By default the helpers builds bare for every architecture for both iOS and Android, but a more fine grained build could be achieved:
 
 ```sh
 # iOS simulator only
-hello-bare --ios-simulator
+hello-pear --ios-simulator
 
 # iOS and iOS simulator
-hello-bare --ios --ios-simulator
+hello-pear --ios --ios-simulator
 
 # Android only arm archs
-hello-bare --android arm64 arm
+hello-pear --android arm64 arm
 
 # Android only arm64
-hello-bare --android arm64
+hello-pear --android arm64
 
 # Android only x86 archs
-hello-bare --android x64 ia32
+hello-pear --android x64 ia32
 
 # help
-hello-bare --help
+hello-pear --help
 ```
 
 Running
 --------
 
 > [!IMPORTANT]
-> After any change in the source code that runs on bare you need to re-run `hello-bare` in order to apply the changes.
+> After any change in the source code that runs on bare you need to re-run `hello-pear` in order to apply the changes.
 
 You can check [expo-cli docs](https://docs.expo.dev/more/expo-cli/) but as a cheat sheet:
 
