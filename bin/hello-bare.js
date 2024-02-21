@@ -2,6 +2,7 @@
 
 const { program } = require('commander')
 const { spawnSync } = require('child_process')
+const path = require('path')
 
 const which = require('which')
 
@@ -28,7 +29,7 @@ const cmakeInstall = (buildOptions) => {
 
 // options
 
-const BUILD = 'bare-build'
+const BUILD = path.join(__dirname, '..', 'build')
 const buildOptionsIos = { build: `${BUILD}/ios-arm64` }
 const buildOptionsIosSimulator = { build: `${BUILD}/ios-arm64-simulator` }
 const buildOptionsAndroidArm64 = { build: `${BUILD}/android-arm64` }
