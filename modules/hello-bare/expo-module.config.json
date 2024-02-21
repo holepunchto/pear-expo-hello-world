@@ -4,6 +4,6 @@
     "modules": ["HelloBareModule"]
   },
   "android": {
-    "modules": ["to.holepunch.hellobare.HelloBareModule"]
+    "modules": ["to.holepunch.hellopear.HelloBareModule"]
   }
 }

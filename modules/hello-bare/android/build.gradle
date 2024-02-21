@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
-group = 'to.holepunch.hellobare'
+group = 'to.holepunch.hellopear'
 version = '0.1.0'
 
 buildscript {
@@ -65,7 +65,7 @@ android {
     }
   }
 
-  namespace "to.holepunch.hellobare"
+  namespace "to.holepunch.hellopear"
 
   defaultConfig {
     minSdkVersion safeExtGet("minSdkVersion", 24)

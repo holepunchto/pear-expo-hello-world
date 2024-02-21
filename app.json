@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo-hello-bare",
-    "slug": "expo-hello-bare",
+    "name": "pear-expo-hello-world",
+    "slug": "pear-expo-hello-world",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,14 +14,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "to.holepunch.hellobare.app"
+      "bundleIdentifier": "to.holepunch.hellopear.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "to.holepunch.hellobare.app"
+      "package": "to.holepunch.hellopear.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

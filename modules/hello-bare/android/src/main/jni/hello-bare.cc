@@ -6,7 +6,7 @@
 #include <hello-bare-jsi.hpp>
 
 struct HelloBare: jni::JavaClass<HelloBare> {
-    static constexpr auto kJavaDescriptor = "Lto/holepunch/hellobare/HelloBare;";
+    static constexpr auto kJavaDescriptor = "Lto/holepunch/hellopear/HelloBare;";
 
     static void install(jni::alias_ref<jni::JClass>,
             jlong jsi_ptr,

@@ -1,4 +1,4 @@
-package to.holepunch.hellobare
+package to.holepunch.hellopear
 
 import com.facebook.react.bridge.CatalystInstanceImpl
 import com.facebook.react.bridge.ReactApplicationContext
