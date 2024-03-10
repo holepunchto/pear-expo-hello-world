@@ -35,11 +35,14 @@ For ease we added a helper script you can simply install running `npm link` in t
 By default the helpers builds bare for every architecture for both iOS and Android, but a more fine grained build could be achieved:
 
 ```sh
-# iOS simulator only
-hello-pear --ios-sim
+# iOS simulator only arm64
+hello-pear --ios-sim arm64
+
+# iOS simulator only x64
+hello-pear --ios-sim x64
 
 # iOS and iOS simulator
-hello-pear --ios --ios-sim
+hello-pear --ios --ios-sim arm64
 
 # Android only arm archs
 hello-pear --android arm64 arm
