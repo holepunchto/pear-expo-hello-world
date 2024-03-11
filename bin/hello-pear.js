@@ -109,8 +109,7 @@ program
       }
       return { ...previous, [value]: true }
     },
-    // TODO Set this to default to match the current machines architecture
-    {}
+    iosSimArchs.indexOf(process.arch) !== -1 ? process.arch : 'arm64'
   )
   .option(
     '-a, --android <arch...>',
