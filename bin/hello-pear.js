@@ -31,7 +31,8 @@ const cmakeInstall = (buildOptions) => {
 
 const BUILD = path.join(__dirname, '..', 'build')
 const buildOptionsIos = { build: `${BUILD}/ios-arm64` }
-const buildOptionsIosSimulator = { build: `${BUILD}/ios-arm64-simulator` }
+const buildOptionsIosArm64Simulator = { build: `${BUILD}/ios-arm64-simulator` }
+const buildOptionsIosX64Simulator = { build: `${BUILD}/ios-x64-simulator` }
 const buildOptionsAndroidArm64 = { build: `${BUILD}/android-arm64` }
 const buildOptionsAndroidArm = { build: `${BUILD}/android-arm` }
 const buildOptionsAndroidX64 = { build: `${BUILD}/android-x64` }
@@ -44,11 +45,23 @@ const optionsIosCommon = {
   iosDeploymentTarget: 14
 }
 const optionsIos = { ...optionsIosCommon, ...buildOptionsIos }
-const optionsIosSimulator = {
+const optionsIosArm64Simulator = {
   ...optionsIosCommon,
-  ...buildOptionsIosSimulator,
+  ...buildOptionsIosArm64Simulator,
   simulator: true
 }
+
+const optionsIosX64Simulator = {
+  ...optionsIosCommon,
+  ...buildOptionsIosX64Simulator,
+  simulator: true,
+  arch: 'x64'
+}
+
+const iosSimArchs = [
+  optionsIosArm64Simulator.arch,
+  optionsIosX64Simulator.arch
+]
 
 const optionsAndroidCommon = {
   ...optionsCommon,
@@ -87,7 +100,17 @@ program
   .version(pkg.version)
   .option('-c, --configure', 'configure before', false)
   .option('-i, --ios', 'build + package for iOS')
-  .option('-s, --ios-sim', 'build + package for iOS simulator')
+  .option(
+    '-s, --ios-sim <arch...>',
+    'build + package for iOS simulator (arm64, x64)',
+    (value, previous) => {
+      if (iosSimArchs.findIndex((arch) => arch === value) < 0) {
+        throw new Error(`${value} is not a valid iOS simulator architecture`)
+      }
+      return { ...previous, [value]: true }
+    },
+    iosSimArchs.indexOf(process.arch) !== -1 ? process.arch : 'arm64'
+  )
   .option(
     '-a, --android <arch...>',
     'build + package for Android architectures (arm64, arm, x64, ia32)',
@@ -109,11 +132,12 @@ program
 async function action () {
   const options = program.opts()
 
-  const hasDarwin = options.ios === true || options.iosSim === true
+  const hasDarwin = options.ios === true || Object.keys(options.iosSim).length > 0
   const hasAndroid = Object.keys(options.android).length > 0
 
   let ios = !hasDarwin && !hasAndroid ? true : options.ios === true
-  let iosSim = !hasDarwin && !hasAndroid ? true : options.iosSim === true
+  let iosSimArm64 = !hasDarwin && !hasAndroid ? true : options.iosSim.arm64 === true
+  let iosSimX64 = !hasDarwin && !hasAndroid ? true : options.iosSim.x64 === true
 
   let androidArm64 = !hasAndroid && !hasDarwin ? true : options.android.arm64 === true
   let androidArm = !hasAndroid && !hasDarwin ? true : options.android.arm === true
@@ -128,8 +152,11 @@ async function action () {
     if (ios) {
       commands.push(() => bareConfigure(optionsIos))
     }
-    if (iosSim) {
-      commands.push(() => bareConfigure(optionsIosSimulator))
+    if (iosSimArm64) {
+      commands.push(() => bareConfigure(optionsIosArm64Simulator))
+    }
+    if (iosSimX64) {
+      commands.push(() => bareConfigure(optionsIosX64Simulator))
     }
     if (androidArm64) {
       commands.push(() => bareConfigure(optionsAndroidArm64))
@@ -150,8 +177,11 @@ async function action () {
   if (ios) {
     commands.push(() => bareBuild(optionsIos))
   }
-  if (iosSim) {
-    commands.push(() => bareBuild(optionsIosSimulator))
+  if (iosSimArm64) {
+    commands.push(() => bareBuild(optionsIosArm64Simulator))
+  }
+  if (iosSimX64) {
+    commands.push(() => bareBuild(optionsIosX64Simulator))
   }
   if (androidArm64) {
     commands.push(() => bareBuild(optionsAndroidArm64))
@@ -171,8 +201,11 @@ async function action () {
   if (ios) {
     commands.push(() => cmakeInstall(buildOptionsIos))
   }
-  if (iosSim) {
-    commands.push(() => cmakeInstall(buildOptionsIosSimulator))
+  if (iosSimArm64) {
+    commands.push(() => cmakeInstall(buildOptionsIosArm64Simulator))
+  }
+  if (iosSimX64) {
+    commands.push(() => cmakeInstall(buildOptionsIosX64Simulator))
   }
   if (androidArm64) {
     commands.push(() => cmakeInstall(buildOptionsAndroidArm64))
