@@ -39,7 +39,7 @@ static struct {
   void* data;
 
 #if defined(__APPLE__)
-  os_log_t logger;
+  os_log_t logger = OS_LOG_DEFAULT;
 #endif
 } hb;
 
