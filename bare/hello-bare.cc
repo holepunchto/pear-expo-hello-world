@@ -98,7 +98,7 @@ static js_value_t* _runtime_send_message(js_env_t* env, js_callback_info_t* info
   assert(err == 0);
 
   uv_rwlock_rdlock(&hb.data_lock);
-  if (hb.on_log != nullptr) {
+  if (hb.on_message != nullptr) {
     hb.on_message(buf, len, hb.data);
   }
   uv_rwlock_rdunlock(&hb.data_lock);
