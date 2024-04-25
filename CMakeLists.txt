@@ -47,8 +47,7 @@ target_link_libraries(
 
 # add native addons objects to the library
 if(target MATCHES "ios" OR target MATCHES "android")
-  link_bare_module(hello_bare bare-pipe)
-  link_bare_module(hello_bare bare-tty)
+  link_bare_modules(hello_bare AMALGAMATE)
 endif()
 
 if(target MATCHES "android")
