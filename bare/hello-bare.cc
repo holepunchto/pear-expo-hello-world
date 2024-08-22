@@ -50,6 +50,10 @@ static void _queue_post(hb_looper_queue_item_t&& job) {
 }
 
 static js_value_t* _runtime_send_log(js_env_t* env, js_callback_info_t* info) {
+  // Open a handle scope at the very beginning of the function
+  js_handle_scope_t* scope;
+  js_open_handle_scope(env, &scope);
+
   int err;
 
   size_t argc = 1;
@@ -78,10 +82,17 @@ static js_value_t* _runtime_send_log(js_env_t* env, js_callback_info_t* info) {
 
   free(str);
 
+  // Close the handle scope before leaving the function.
+  js_close_handle_scope(env, scope);
+
   return nullptr;
 }
 
 static js_value_t* _runtime_send_message(js_env_t* env, js_callback_info_t* info) {
+  // Open a handle scope at the very beginning of the function
+  js_handle_scope_t* scope;
+  js_open_handle_scope(env, &scope);
+
   int err;
 
   size_t argc = 1;
@@ -102,6 +113,9 @@ static js_value_t* _runtime_send_message(js_env_t* env, js_callback_info_t* info
     hb.on_message(buf, len, hb.data);
   }
   uv_rwlock_rdunlock(&hb.data_lock);
+
+  // Close the handle scope before leaving the function.
+  js_close_handle_scope(env, scope);
 
   return nullptr;
 }
@@ -160,6 +174,9 @@ void hb_init(hb_on_message on_message, hb_on_log on_log, void* data) {
       err = bare_setup(&loop, platform, &hb.env, 0, nullptr, nullptr, &bare);
       assert(err == 0);
 
+      js_handle_scope_t* scope;
+      js_open_handle_scope(hb.env, &scope);
+
       js_value_t* global;
       js_get_global(hb.env, &global);
       js_value_t* js_hb;
@@ -189,6 +206,8 @@ void hb_init(hb_on_message on_message, hb_on_log on_log, void* data) {
         err = js_set_named_property(hb.env, js_hb, name, fn);
         assert(err == 0);
       }
+
+      js_close_handle_scope(hb.env, scope);
 
       uv_buf_t source = uv_buf_init((char*)bundle, bundle_len);
       err = bare_run(bare, "/hello-bare.bundle", &source);
@@ -222,6 +241,11 @@ void hb_send_message(void* buf, size_t len) {
   _queue_post([buffer]() {
     js_env_t* env = hb.env;
 
+    // Open a handle scope at the beginning of the asynchronous operation
+    // to ensure all V8 handle operations are covered.
+    js_handle_scope_t* scope; // Declare a variable for the handle scope.
+    js_open_handle_scope(env, &scope); // Open a new handle scope.
+
     js_value_t* global;
     js_get_global(env, &global);
 
@@ -232,6 +256,8 @@ void hb_send_message(void* buf, size_t len) {
     bool has_property;
     js_has_named_property(env, js_hb, name, &has_property);
     if (!has_property) {
+      // If the property does not exist, close the handle scope to clean up and then return early.
+      js_close_handle_scope(env, scope); // Close the handle scope before returning.
       return;
     }
 
@@ -244,13 +270,11 @@ void hb_send_message(void* buf, size_t len) {
     js_value_t* js_array;
     js_create_typedarray(env, js_uint8_array, buffer->size(), js_buffer, 0, &js_array);
 
-    js_handle_scope_t* scope;
-    int hs = js_open_handle_scope(env, &scope);
-
     js_value_t* args[1] = { js_array };
     js_value_t* result;
     js_call_function(env, js_hb, js_on_message, 1, args, &result);
 
+    // Close the handle scope after all handle operations are done.
     js_close_handle_scope(env, scope);
   });
 }
