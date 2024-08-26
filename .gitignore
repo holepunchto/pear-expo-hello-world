@@ -37,6 +37,7 @@ yarn-error.*
 # building
 build
 .cxx
+package-lock.json
 
 # app
 /android/
