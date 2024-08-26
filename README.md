@@ -36,13 +36,10 @@ By default the helpers builds bare for every architecture for both iOS and Andro
 
 ```sh
 # iOS simulator only
-hello-pear --ios-sim
-
-# iOS simulator only with x64 architecture
-hello-pear --ios-sim x64
+hello-pear --ios-simulator
 
 # iOS and iOS simulator
-hello-pear --ios --ios-sim arm64
+hello-pear --ios --ios-simulator
 
 # Android only arm archs
 hello-pear --android arm64 arm
