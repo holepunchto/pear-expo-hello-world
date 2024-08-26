@@ -2,39 +2,49 @@
 
 A Pear Runtime `hello world` using [Bare](https://github.com/holepunchto/bare) with [Expo](https://docs.expo.dev/).
 
-Requirements
-------------
+## Requirements
 
-Make sure you have installed on your system:
+Make sure below packages are installed on your system:
 
-- `CMake` >= 3.25.
-- For Android, installing Android Studio is recommended (you can follow [React Native docs](https://reactnative.dev/docs/0.72/environment-setup?platform=android)), also make sure Android NDK version `25.1.8937393` is installed and set the `ANDROID_HOME` environment variable (see `Configure the ANDROID_HOME environment variable` section on React Native docs).
+- `CMake` >= 3.25 - can check via `cmake --version`
+- `Android Studio` - For Android, installing Android Studio is recommended (you can follow [React Native docs](https://reactnative.dev/docs/set-up-your-environment?platform=android))
+- `Android NDK` - also make sure Android NDK version `25.1.8937393` is installed and set the `ANDROID_HOME` environment variable (see `Configure the ANDROID_HOME environment variable` section in the above React Native docs).
 
-Building
---------
+## Build
 
-Clone this repo and run:
+1. Clone this repo:
+
+    ```
+    git clone https://github.com/holepunchto/pear-expo-hello-world.git
+    ```
+
+2. run following command to sync git submodules:
+
+    ```sh
+    git submodule update --init --recursive
+    ```
+
+    > [!NOTE]
+    > From now on, you should run `npx bare-dev vendor sync` after updating `bare` git submodule.
+
+3. run `npm install` to install all the dependencies, or use other package manager by preference.
+
+4. run `npm link` in the project root, then run
+
+    ```sh
+    hello-pear --configure
+    ```
+
+    > could also run as `bin/hello-pear.js --configure` or `npx hello-pear --configure`, need to append the `--configure` flag when first run
+
+### hello-pear commands
+
+By default the `hello-pear` helpers will builds bare for every architecture for both iOS and Android, but a more fine grained build could be achieved:
 
 ```sh
-git submodule update --init --recursive
-```
+# list all commands
+hello-pear --help
 
-> [!NOTE]
-> From now on, you should run `npx bare-dev vendor sync` after updating `bare` git submodule.
-
-Now install all the dependencies running `npm install` or your package manager of preference.
-
-For ease we added a helper script you can simply install running `npm link` in the project's root -or `bin/hello-pear.js` or npx `hello-pear`-.
-
-> [!IMPORTANT]
-> The first time you run it you need to append the `--configure` flag:
-> ```sh
-> hello-pear --configure
-> ```
-
-By default the helpers builds bare for every architecture for both iOS and Android, but a more fine grained build could be achieved:
-
-```sh
 # iOS simulator only
 hello-pear --ios-sim
 
@@ -52,13 +62,9 @@ hello-pear --android arm64
 
 # Android only x86 archs
 hello-pear --android x64 ia32
-
-# help
-hello-pear --help
 ```
 
-Running
---------
+## Run on Device
 
 > [!IMPORTANT]
 > After any change in the source code that runs on bare you need to re-run `hello-pear` in order to apply the changes.
