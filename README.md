@@ -29,27 +29,27 @@ Make sure below packages are installed on your system:
 
 3. run `npm install` to install all the dependencies, or use other package manager by preference.
 
-4. run `npm link` in the project root, then run
+4. run configure script from the project root (Need to append the `--configure` flag when first run)
 
     ```sh
-    hello-pear --configure
+    ./bin/hello-pear.js --configure
     ```
 
-    > could also run as `bin/hello-pear.js --configure` or `npx hello-pear --configure`, need to append the `--configure` flag when first run
+    > could also run as `npx hello-pear --configure`, or do `npm link` then run `hello-pear --configure`.
 
 ### hello-pear commands
 
-By default the `hello-pear` helpers will builds bare for every architecture for both iOS and Android, but a more fine grained build could be achieved:
+By default the `hello-pear` script will builds bare for every architecture for both iOS and Android, but a more fine grained build could be achieved:
 
 ```sh
 # list all commands
 hello-pear --help
 
 # iOS simulator only
-hello-pear --ios-simulator
+hello-pear --ios-sim
 
 # iOS and iOS simulator
-hello-pear --ios --ios-simulator
+hello-pear --ios --ios-sim
 
 # Android only arm archs
 hello-pear --android arm64 arm
@@ -70,12 +70,12 @@ You can check [expo-cli docs](https://docs.expo.dev/more/expo-cli/) but as a che
 
 ```sh
 # build and run on iOS connected devices
-npx expo run:ios
+npm run ios
 # clearing the build cache
 npx expo run:ios --no-build-cache
 
 # build and run on Android connected devices
-npx expo run:android
+npm run android
 # clearing the build cache
 npx expo run:android --no-build-cache
 
