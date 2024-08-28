@@ -93,6 +93,8 @@ In `lib/native.js` it register the `HelloBare` expo module from `modules/hello-b
 
 > [!NOTE] The rpc.register is based on number instead of name, so make sure you register user side and native side methods in the same order.
 
+> [!INFO] `bare/hello-bare-jsi` defined the interface for both Android and iOS to forward rpc calls to `bare/main.js`.
+
 ## Short Tutorial
 
 We'll replace `reverseString` call to `uppserString` call.
