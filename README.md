@@ -1,5 +1,8 @@
 # pear-expo-hello-world
 
+> [!IMPORTANT]
+> This repo is kind of obsolete to [bare-kit](https://github.com/holepunchto/bare-kit). Will be available as an expo plugin. Stay tuned
+
 A Pear Runtime `hello world` using [Bare](https://github.com/holepunchto/bare) with [Expo](https://docs.expo.dev/).
 
 ## Requirements
