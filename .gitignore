@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# Ruby / CocoaPods
+**/Pods/
+
 # Expo
 .expo/
 dist/
@@ -46,3 +49,11 @@ package-lock.json
 *.d
 /bare-build/
 /bare-libs/
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
