@@ -85,3 +85,23 @@ npx expo run:android --no-build-cache
 # just start the local server
 npx expo start --dev-client
 ```
+
+## How it works
+
+The project create an [Expo module](https://docs.expo.dev/modules/overview/) to access Bare JS scripts via [tiny-buffer-rpc](https://github.com/holepunchto/tiny-buffer-rpc)
+
+In `App.js` we defined the UI with React Native, and call `reverseString` function from `lib/native.js`, the input string will be reversed.
+
+In `lib/native.js` it register the `HelloBare` expo module from `modules/hello-bare`, and with `reverseString` definition, it will forward rpc calls to `bare/main.js`
+
+> [!NOTE] The rpc.register is based on number instead of name, so make sure you register user side and native side methods in the same order.
+
+> [!INFO] `bare/hello-bare-jsi` defined the interface for both Android and iOS to forward rpc calls to `bare/main.js`.
+
+## Short Tutorial
+
+We'll replace `reverseString` call to `uppserString` call.
+
+1. Comment out the code in `App.js`, `lib/native.js` and `bare/main.js`
+1. then run `./bin/hello-pear.js --ios-sim` or equivalent command to build and generate required code.
+1. Run `npm run ios` or equivalent command to see the screen.

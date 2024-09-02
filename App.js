@@ -1,23 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { reverseString } from './lib/native';
+import { reverseString, /*upperString*/ } from './lib/native';
 
 export default function App() {
   const [value, setValue] = useState('')
   const [reversed, setReversed]  = useState(null)
+
+  const btnCta = useCallback(() => {
+    reverseString(value).then(result => {
+      setReversed(result)
+    })
+    // upperString(value).then(result => {
+    //   setReversed(result)
+    // })
+    setValue("")
+  }, [value, reverseString, setReversed, setValue])
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Reverse string in bare:</Text>
       <TextInput style={styles.input} value={value} onChangeText={setValue}/>
       <Button
-        onPress={() => {
-          reverseString(value).then(result => {
-            setReversed(result)
-          })
-          setValue("")
-        }}
+        onPress={btnCta}
         title="Send"
       />
       {reversed !== null && <><Text style={styles.text}>Result: {reversed}</Text></>}
