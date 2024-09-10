@@ -1,7 +1,7 @@
 # pear-expo-hello-world
 
 > [!IMPORTANT]
-> This repo is kind of obsolete to [bare-kit](https://github.com/holepunchto/bare-kit). Will be available as an expo plugin. Stay tuned
+> This repo is obsolete to [bare-expo](https://github.com/holepunchto/bare-expo), which is based on [react-native-bare-kit](https://github.com/holepunchto/react-native-bare-kit).
 
 A Pear Runtime `hello world` using [Bare](https://github.com/holepunchto/bare) with [Expo](https://docs.expo.dev/).
 
